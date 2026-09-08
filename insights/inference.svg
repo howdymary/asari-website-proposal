@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 408" preserveAspectRatio="xMidYMid meet" role="img" aria-label="End-to-end restacking of request bars across compute lanes">
+  <title>End-to-end restacking</title>
+  <desc>Five compute lanes fill with request bars in a loose first layout, then the whole arrangement reorganizes: bars slide left to eliminate idle gaps and two pairs of bars migrate between lanes, while a marker line moves left to reveal a reclaimed span of time on the right.</desc>
+  <style>
+    /* Static fallback shows the "packed" (restacked) layout — used by
+       renderers that don't run CSS animations (og:image scrapers, RSS
+       readers, some SVG->raster conversions). CSS animations in modern
+       browsers override these during the loop. */
+    .bar { opacity: 0.92; }
+    #mk  { opacity: 0.9; transform: translateX(-114px); }
+    #gz  { opacity: 0.16; }
+
+    @keyframes restack {
+      0%       { opacity: 0; transform: translate(calc(var(--dx) + 26px), var(--dy)); }
+      8%, 40%  { opacity: 1; transform: translate(var(--dx), var(--dy)); }
+      62%, 86% { opacity: 1; transform: translate(0, 0); }
+      97%, 100%{ opacity: 0; transform: translate(0, 0); }
+    }
+    @keyframes mark {
+      0%       { opacity: 0;  transform: translateX(0); }
+      8%, 40%  { opacity: .55; transform: translateX(0); }
+      62%, 86% { opacity: .9;  transform: translateX(-114px); }
+      97%, 100%{ opacity: 0;  transform: translateX(-114px); }
+    }
+    @keyframes gain {
+      0%, 40%  { opacity: 0; }
+      62%, 86% { opacity: .16; }
+      97%, 100%{ opacity: 0; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .bar { animation: restack 5s cubic-bezier(.3,.75,.25,1) infinite; }
+      #mk  { animation: mark    5s cubic-bezier(.3,.75,.25,1) infinite; }
+      #gz  { animation: gain    5s ease-in-out infinite; }
+    }
+  </style>
+
+  <rect x="0" y="0" width="680" height="408" rx="12" fill="#0E1116"/>
+
+  <!-- Reclaimed span (gain zone) -->
+  <rect id="gz" x="518" y="28" width="114" height="352" rx="4" fill="#1D9E75" opacity="0"/>
+
+  <!-- Static baseline marker (right edge of scattered layout) -->
+  <line x1="632" y1="28" x2="632" y2="380" stroke="#2A323C" stroke-width="0.5"/>
+
+  <!-- Lane tracks -->
+  <g id="tracks">
+    <rect x="48" y="34"  width="584" height="52" rx="4" fill="#131820" stroke="#212832" stroke-width="0.5"/>
+    <rect x="48" y="106" width="584" height="52" rx="4" fill="#131820" stroke="#212832" stroke-width="0.5"/>
+    <rect x="48" y="178" width="584" height="52" rx="4" fill="#131820" stroke="#212832" stroke-width="0.5"/>
+    <rect x="48" y="250" width="584" height="52" rx="4" fill="#131820" stroke="#212832" stroke-width="0.5"/>
+    <rect x="48" y="322" width="584" height="52" rx="4" fill="#131820" stroke="#212832" stroke-width="0.5"/>
+  </g>
+
+  <!-- Bars (25 total: 5 lanes x 5 columns) -->
+  <g id="bars">
+    <!-- Lane 0, y=37, inner h=46 -->
+    <rect class="bar" x="48"  y="37" width="104" height="46" rx="4" fill="#1D9E75" style="--dx:0px;   --dy:0px;    animation-delay:0.00s"/>
+    <rect class="bar" x="158" y="37" width="78"  height="46" rx="4" fill="#378ADD" style="--dx:18px;  --dy:0px;    animation-delay:0.05s"/>
+    <rect class="bar" x="242" y="37" width="126" height="46" rx="4" fill="#5DCAA5" style="--dx:62px;  --dy:0px;    animation-delay:0.10s"/>
+    <rect class="bar" x="374" y="37" width="62"  height="46" rx="4" fill="#85B7EB" style="--dx:84px;  --dy:0px;    animation-delay:0.15s"/>
+    <rect class="bar" x="442" y="37" width="70"  height="46" rx="4" fill="#1D9E75" style="--dx:114px; --dy:0px;    animation-delay:0.20s"/>
+
+    <!-- Lane 1, y=109 -->
+    <rect class="bar" x="48"  y="109" width="70"  height="46" rx="4" fill="#378ADD" style="--dx:0px;   --dy:0px;    animation-delay:0.03s"/>
+    <rect class="bar" x="124" y="109" width="134" height="46" rx="4" fill="#5DCAA5" style="--dx:34px;  --dy:0px;    animation-delay:0.08s"/>
+    <rect class="bar" x="264" y="109" width="86"  height="46" rx="4" fill="#85B7EB" style="--dx:50px;  --dy:0px;    animation-delay:0.13s"/>
+    <rect class="bar" x="356" y="109" width="90"  height="46" rx="4" fill="#EF9F27" style="--dx:76px;  --dy:144px;  animation-delay:0.18s"/>
+    <rect class="bar" x="452" y="109" width="60"  height="46" rx="4" fill="#1D9E75" style="--dx:114px; --dy:0px;    animation-delay:0.23s"/>
+
+    <!-- Lane 2, y=181 -->
+    <rect class="bar" x="48"  y="181" width="126" height="46" rx="4" fill="#5DCAA5" style="--dx:0px;   --dy:0px;    animation-delay:0.06s"/>
+    <rect class="bar" x="180" y="181" width="62"  height="46" rx="4" fill="#EF9F27" style="--dx:24px;  --dy:144px;  animation-delay:0.11s"/>
+    <rect class="bar" x="248" y="181" width="104" height="46" rx="4" fill="#1D9E75" style="--dx:50px;  --dy:0px;    animation-delay:0.16s"/>
+    <rect class="bar" x="358" y="181" width="78"  height="46" rx="4" fill="#1D9E75" style="--dx:78px;  --dy:0px;    animation-delay:0.21s"/>
+    <rect class="bar" x="442" y="181" width="70"  height="46" rx="4" fill="#378ADD" style="--dx:114px; --dy:0px;    animation-delay:0.26s"/>
+
+    <!-- Lane 3, y=253 -->
+    <rect class="bar" x="48"  y="253" width="86"  height="46" rx="4" fill="#85B7EB" style="--dx:0px;   --dy:0px;    animation-delay:0.09s"/>
+    <rect class="bar" x="140" y="253" width="118" height="46" rx="4" fill="#1D9E75" style="--dx:26px;  --dy:0px;    animation-delay:0.14s"/>
+    <rect class="bar" x="264" y="253" width="70"  height="46" rx="4" fill="#1D9E75" style="--dx:46px;  --dy:0px;    animation-delay:0.19s"/>
+    <rect class="bar" x="340" y="253" width="90"  height="46" rx="4" fill="#EF9F27" style="--dx:106px; --dy:-144px; animation-delay:0.24s"/>
+    <rect class="bar" x="436" y="253" width="76"  height="46" rx="4" fill="#5DCAA5" style="--dx:114px; --dy:0px;    animation-delay:0.29s"/>
+
+    <!-- Lane 4, y=325 -->
+    <rect class="bar" x="48"  y="325" width="110" height="46" rx="4" fill="#1D9E75" style="--dx:0px;   --dy:0px;    animation-delay:0.12s"/>
+    <rect class="bar" x="164" y="325" width="62"  height="46" rx="4" fill="#EF9F27" style="--dx:28px;  --dy:-144px; animation-delay:0.17s"/>
+    <rect class="bar" x="232" y="325" width="134" height="46" rx="4" fill="#378ADD" style="--dx:70px;  --dy:0px;    animation-delay:0.22s"/>
+    <rect class="bar" x="372" y="325" width="54"  height="46" rx="4" fill="#5DCAA5" style="--dx:84px;  --dy:0px;    animation-delay:0.27s"/>
+    <rect class="bar" x="432" y="325" width="80"  height="46" rx="4" fill="#85B7EB" style="--dx:114px; --dy:0px;    animation-delay:0.32s"/>
+  </g>
+
+  <!-- Moving marker line + dot -->
+  <g id="mk">
+    <line x1="632" y1="28" x2="632" y2="380" stroke="#9FE1CB" stroke-width="1"/>
+    <circle cx="632" cy="28" r="2.5" fill="#9FE1CB"/>
+  </g>
+</svg>
